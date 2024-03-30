@@ -3,19 +3,9 @@ kind: Elasticsearch
 metadata:
   labels:
     app.kubernetes.io/instance: elasticsearch
-  name: REDACTED
-  namespace: REDACTED
+  name: elasticserch
+  namespace: elastic-main
 spec:
-  http:
-    tls:
-      selfSignedCertificate:
-        subjectAltNames:
-          - dns: REDACTED-es-read-http
-          - dns: REDACTED-es-write-http
-          - dns: REDACTED-es-read-http.REDACTED
-          - dns: REDACTED-es-write-http.REDACTED
-          - dns: REDACTED-es-read-http.REDACTED.svc
-          - dns: REDACTED-es-write-http.REDACTED.svc
   monitoring:
     logs:
       elasticsearchRefs:
