@@ -4,12 +4,6 @@ metadata:
   name: main
 spec:
   version: 7.17.18
-  - name: install-plugins
-    command:
-    - sh
-    - -c
-    - |
-      bin/plugin install elasticsearch/marvel-agent
   nodeSets:
   - name: master
     count: 3
