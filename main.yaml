@@ -1,0 +1,55 @@
+apiVersion: elasticsearch.k8s.elastic.co/v1
+kind: Elasticsearch
+metadata:
+  name: main
+spec:
+  version: 7.17.18
+  - name: install-plugins
+    command:
+    - sh
+    - -c
+    - |
+      bin/plugin install elasticsearch/marvel-agent
+  nodeSets:
+  - name: master
+    count: 3
+    config:
+      node.master: true
+      node.data: false
+      node.ingest: false
+      xpack.ml.enabled: true
+      xpack.monitoring.exporters.id1.type: http
+      xpack.monitoring.exporters.id1.auth.password: OUp7PM9fd0nLvV3ajS3qVW
+      xpack.monitoring.exporters.id1.auth.username: marvel_user
+      node.store.allow_mmap: false
+  - name: ingest
+    count: 3
+    config:
+      node.master: false
+      node.data: true
+      node.ingest: true
+      xpack.ml.enabled: true
+      node.store.allow_mmap: false
+      xpack.ml.enabled: true
+      xpack.monitoring.exporters.id1.type: http
+      xpack.monitoring.exporters.id1.auth.password: OUp7PM9fd0nLvV3ajS3qVW
+      xpack.monitoring.exporters.id1.auth.username: marvel_user
+      node.store.allow_mmap: false
+  - name: storage
+    count: 3
+    config:
+      node.roles: ["data_warm", "ingest", "data"]
+      xpack.ml.enabled: true
+      xpack.monitoring.exporters.id1.type: http
+      xpack.monitoring.exporters.id1.auth.password: OUp7PM9fd0nLvV3ajS3qVW
+      xpack.monitoring.exporters.id1.auth.username: marvel_user
+      node.store.allow_mmap: false
+  - name: coordinator
+    count: 3
+    config:
+      node.roles: [ ]
+      xpack.ml.enabled: true
+      xpack.monitoring.exporters.id1.type: http
+      xpack.monitoring.exporters.id1.auth.password: OUp7PM9fd0nLvV3ajS3qVW
+      xpack.monitoring.exporters.id1.auth.username: marvel_user
+      node.store.allow_mmap: false
