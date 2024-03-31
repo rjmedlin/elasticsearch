@@ -6,7 +6,7 @@ spec:
   version: 7.17.18
   nodeSets:
   - name: master
-    count: 3
+    count: 1
     config:
       node.master: true
       node.data: false
@@ -17,7 +17,7 @@ spec:
       xpack.monitoring.exporters.id1.auth.username: marvel_user
       node.store.allow_mmap: false
   - name: ingest
-    count: 3
+    count: 1
     config:
       node.master: false
       node.data: true
@@ -30,7 +30,7 @@ spec:
       xpack.monitoring.exporters.id1.auth.username: marvel_user
       node.store.allow_mmap: false
   - name: storage
-    count: 3
+    count: 1
     config:
       node.roles: ["data_warm", "ingest", "data"]
       xpack.ml.enabled: true
@@ -39,7 +39,7 @@ spec:
       xpack.monitoring.exporters.id1.auth.username: marvel_user
       node.store.allow_mmap: false
   - name: coordinator
-    count: 3
+    count: 1
     config:
       node.roles: [ ]
       xpack.ml.enabled: true
