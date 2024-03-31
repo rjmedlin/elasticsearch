@@ -30,8 +30,4 @@ spec:
     count: 1
     config:
       node.roles: [ ]
-      xpack.ml.enabled: false
-      xpack.monitoring.exporters.id1.type: http
-      xpack.monitoring.exporters.id1.auth.password: OUp7PM9fd0nLvV3ajS3qVW
-      xpack.monitoring.exporters.id1.auth.username: marvel_user
       node.store.allow_mmap: false
