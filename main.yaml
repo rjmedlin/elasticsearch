@@ -11,7 +11,7 @@ spec:
       node.master: true
       node.data: false
       node.ingest: false
-      xpack.ml.enabled: true
+      xpack.ml.enabled: false
       xpack.monitoring.exporters.id1.type: http
       xpack.monitoring.exporters.id1.auth.password: OUp7PM9fd0nLvV3ajS3qVW
       xpack.monitoring.exporters.id1.auth.username: marvel_user
@@ -22,7 +22,7 @@ spec:
       node.master: false
       node.data: true
       node.ingest: true
-      xpack.ml.enabled: true
+      xpack.ml.enabled: false
       node.store.allow_mmap: false
       xpack.ml.enabled: true
       xpack.monitoring.exporters.id1.type: http
@@ -33,7 +33,7 @@ spec:
     count: 1
     config:
       node.roles: ["data_warm", "ingest", "data"]
-      xpack.ml.enabled: true
+      xpack.ml.enabled: false
       xpack.monitoring.exporters.id1.type: http
       xpack.monitoring.exporters.id1.auth.password: OUp7PM9fd0nLvV3ajS3qVW
       xpack.monitoring.exporters.id1.auth.username: marvel_user
@@ -42,7 +42,7 @@ spec:
     count: 1
     config:
       node.roles: [ ]
-      xpack.ml.enabled: true
+      xpack.ml.enabled: false
       xpack.monitoring.exporters.id1.type: http
       xpack.monitoring.exporters.id1.auth.password: OUp7PM9fd0nLvV3ajS3qVW
       xpack.monitoring.exporters.id1.auth.username: marvel_user
