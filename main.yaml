@@ -31,6 +31,7 @@ spec:
     config:
       node.roles: [ ]
       node.store.allow_mmap: false
+---      
 apiVersion: kibana.k8s.elastic.co/v1
 kind: Kibana
 metadata:
@@ -39,4 +40,14 @@ spec:
   version: 7.16.1
   count: 1
   elasticsearchRef:
-    name: main      
+    name: main 
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kibana-config
+  labels:
+    component: kibana
+data:
+  elasticsearch_username: elastic
+  elasticsearch_password: CrTe85lw$t
