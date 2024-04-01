@@ -32,20 +32,14 @@ spec:
                   cpu: 250m
                   memory: 4Gi
           initContainers:
-            - command:
-                - /bin/bash
-                - '-exc'
-                - |
-                  CURRENT=`sysctl -n vm.max_map_count`;
-                  DESIRED="262144";
-                  if [ "$DESIRED" -gt "$CURRENT" ]; then
-                      sysctl -w vm.max_map_count=262144;
-                  fi;
-                  CURRENT=`sysctl -n fs.file-max`;
-                  DESIRED="65536";
-                  if [ "$DESIRED" -gt "$CURRENT" ]; then
-                      sysctl -w fs.file-max=65536;
-                  fi;
+          - name: increase-vm-max-map
+             image: busybox
+             imagePullPolicy: IfNotPresent
+             command: ['sh', '-c', 'sysctl', '-w', 'vm.max_map_count=262144']
+             command: ["sh", "-c", "echo", "vm.max_map_count=262144", ">>", "/etc/sysctl.conf"]
+             command: ["sh", "-c", "sysctl", "-p"]
+             securityContext:
+               privileged: false
               image: 'docker.io/bitnami/bitnami-shell:10-debian-10-r248'
               imagePullPolicy: IfNotPresent
               name: sysctl
