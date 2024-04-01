@@ -39,8 +39,8 @@ pipeline:
               type: KubernetesDirect
               spec:
                 connectorRef: kubernetesdelegate
-                namespace: elasticsearch
-                releaseName: elasticsearch
+                namespace: elastic-main
+                releaseName: elastic-main
             allowSimultaneousDeployments: false
           execution:
             steps:
