@@ -11,4 +11,4 @@ spec:
     count: 1
     config:
       node.roles: ["master","data","ingest"]
-  version: 7.16.1
+  version: 7.17.18
