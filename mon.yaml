@@ -27,7 +27,9 @@ spec:
        if [ "$DESIRED" -gt "$CURRENT" ]; then
            sysctl -w fs.file-max=1024;
        fi;
-       name: sysctl
-       resources:
-         limits: {}
-         requests: {}
+  image: 'docker.io/bitnami/bitnami-shell:10-debian-10-r248'
+  imagePullPolicy: IfNotPresent
+  name: sysctl
+  resources:
+    limits: {}
+    requests: {}
