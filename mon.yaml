@@ -6,6 +6,7 @@ metadata:
   name: combo
   namespace: elastic-mon
 spec:
+  version: 7.17.18
   monitoring:
     logs:
       elasticsearchRefs:
