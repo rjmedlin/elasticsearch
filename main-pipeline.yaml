@@ -1,0 +1,69 @@
+pipeline:
+  name: elasticsearch
+  identifier: elasticsearch
+  projectIdentifier: ElasticSearch
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: main
+        identifier: main
+        description: ""
+        type: Deployment
+        spec:
+          serviceConfig:
+            serviceRef: elasticsearch
+            serviceDefinition:
+              spec:
+                variables: []
+                manifests:
+                  - manifest:
+                      identifier: elasticsearch
+                      type: K8sManifest
+                      spec:
+                        store:
+                          type: Github
+                          spec:
+                            connectorRef: Github
+                            gitFetchType: Branch
+                            paths:
+                              - main.yaml
+                            repoName: elasticsearch
+                            branch: main
+                        skipResourceVersioning: false
+                        enableDeclarativeRollback: false
+              type: Kubernetes
+          infrastructure:
+            environmentRef: Dev
+            infrastructureDefinition:
+              type: KubernetesDirect
+              spec:
+                connectorRef: kubernetesdelegate
+                namespace: elasticsearch
+                releaseName: elasticsearch
+            allowSimultaneousDeployments: false
+          execution:
+            steps:
+              - step:
+                  name: Rollout Deployment
+                  identifier: rolloutDeployment
+                  type: K8sRollingDeploy
+                  timeout: 10m
+                  spec:
+                    skipDryRun: false
+                    pruningEnabled: false
+            rollbackSteps:
+              - step:
+                  name: Rollback Rollout Deployment
+                  identifier: rollbackRolloutDeployment
+                  type: K8sRollingRollback
+                  timeout: 10m
+                  spec:
+                    pruningEnabled: false
+        tags: {}
+        failureStrategies:
+          - onFailure:
+              errors:
+                - AllErrors
+              action:
+                type: StageRollback
