@@ -1,6 +1,6 @@
 pipeline:
   name: elastic-mon
-  identifier: elastic-mon
+  identifier: elasticmon
   projectIdentifier: ElasticSearch
   orgIdentifier: default
   tags: {}
