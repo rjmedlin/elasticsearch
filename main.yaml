@@ -30,4 +30,4 @@ spec:
       node.roles: [ ]
       node.store.allow_mmap: false
 
-  elasticsearch_password: ismail-wajdi-7415b3176
+ # elasticsearch_password: ismail-wajdi-7415b3176
