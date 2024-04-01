@@ -32,15 +32,58 @@ spec:
       node.roles: [ ]
       node.store.allow_mmap: false
 ---      
-apiVersion: kibana.k8s.elastic.co/v1
-kind: Kibana
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: main
+  name: kibana
 spec:
-  version: 7.16.1
-  count: 1
-  elasticsearchRef:
-    name: main 
+  selector:
+    matchLabels:
+      component: kibana
+  template:
+    metadata:
+      labels:
+        component: kibana
+    spec:
+      containers:
+      - name: kibana
+        image: docker.elastic.co/kibana/kibana:7.12.0
+        env:
+        - name: ELASTICSEARCH_URL
+          value: http://elasticsearch:9200
+        - name: XPACK_SECURITY_ENABLED
+          value: "true"
+        - name: ELASTICSEARCH_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: kibana-config
+              key: elasticsearch_username
+        - name: ELASTICSEARCH_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: kibana-config
+              key: elasticsearch_password
+        envFrom:
+        - configMapRef:
+            name: kibana-config
+        ports:
+        - containerPort: 5601
+          name: http
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana
+  labels:
+    component: kibana
+spec:
+  type: NodePort
+  selector:
+    component: kibana
+  ports:
+  - port: 5601
+    targetPort: 5601
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -50,4 +93,4 @@ metadata:
     component: kibana
 data:
   elasticsearch_username: elastic
-  elasticsearch_password: CrTe85lw$t
+  elasticsearch_password: ismail-wajdi-7415b3176
